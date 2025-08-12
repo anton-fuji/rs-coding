@@ -1,0 +1,10 @@
+[workspace]
+resolver= "3"
+members = [
+    "abc300",
+    "abc301", "abc302",
+    "abc400",
+]
+
+[workspace.dependencies]
+proconio = "0.4"
