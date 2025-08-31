@@ -1,10 +1,10 @@
 [workspace]
 resolver= "3"
-members = [
+members = [ "LeetCode/easy",
     "abc300",
     "abc301", "abc302",
     "abc400",
-  "abc401", "abc402", "abc403", "abc418", "abc419",
+  "abc401", "abc402", "abc403", "abc418", "abc419", "practice",
 ]
 
 [workspace.dependencies]
