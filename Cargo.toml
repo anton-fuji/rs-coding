@@ -4,8 +4,8 @@ members = [ "LeetCode/easy",
     "abc300",
     "abc301", "abc302",
     "abc400",
-  "abc401", "abc402", "abc403", "abc418", "abc419", "practice",
+  "abc401", "abc402", "abc403", "abc418", "abc419", "abc422", "practice",
 ]
 
 [workspace.dependencies]
-proconio = "0.4"
+proconio = { version = "0.4", features = ["derive"]}
