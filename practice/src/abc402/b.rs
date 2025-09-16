@@ -20,13 +20,9 @@ fn main() {
                 }
                 low.push_back(x);
             }
-            2 => {
-                if let Some(l) = low.pop_front() {
-                    println!("{}", l);
-                }
-            }
             _ => {
-                return;
+                let l = low.pop_front().unwrap();
+                println!("{}", l);
             }
         }
     }
