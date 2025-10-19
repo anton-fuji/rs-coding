@@ -1,22 +1,20 @@
-// use std::{cmp::Reverse, collections::BinaryHeap};
-use std::collections::HashSet;
-// use itertools::Itertools;
-use proconio::input;
+use std::cmp::min;
 
+use proconio::{fastout, input};
+
+#[fastout]
 fn main() {
     input! {
-      n: usize,
-      s: [String; n],
+      s: usize,
+      a: usize,
+      b: usize,
+      x: usize,
     }
 
-    let mut dict = HashSet::new();
-    for i in 0..n {
-        for j in 0..n {
-            if i != j {
-                let combind_str = format!("{}{}", s[i], s[j]);
-                dict.insert(combind_str);
-            }
-        }
-    }
-    println!("{}\n", dict.len());
+    let mut res = 0;
+    res += (x / (a + b)) * a;
+    res += min(x % (a + b), a);
+
+    let ans = res * s;
+    println!("{ans}");
 }
