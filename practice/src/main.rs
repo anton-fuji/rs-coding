@@ -1,20 +1,19 @@
-use std::cmp::min;
-
 use proconio::{fastout, input};
 
 #[fastout]
 fn main() {
     input! {
-      s: usize,
-      a: usize,
-      b: usize,
+      n: usize,
+      s: [String; n],
       x: usize,
+      y: String,
     }
 
-    let mut res = 0;
-    res += (x / (a + b)) * a;
-    res += min(x % (a + b), a);
-
-    let ans = res * s;
-    println!("{ans}");
+    let mut res = "No";
+    for (key, val) in s.iter().enumerate() {
+        if key == (x - 1) && *val == y {
+            res = "Yes";
+        }
+    }
+    println!("{res}");
 }
