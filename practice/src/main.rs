@@ -1,19 +1,14 @@
+use std::collections::HashSet;
+
 use proconio::{fastout, input};
 
 #[fastout]
 fn main() {
     input! {
-      n: usize,
-      s: [String; n],
-      x: usize,
-      y: String,
+       card: [usize; 4]
     }
 
-    let mut res = "No";
-    for (key, val) in s.iter().enumerate() {
-        if key == (x - 1) && *val == y {
-            res = "Yes";
-        }
-    }
-    println!("{res}");
+    let set: HashSet<usize> = HashSet::from_iter(card);
+    let res = set.len() == 2;
+    println!("{}", if res { "Yes" } else { "No" });
 }
