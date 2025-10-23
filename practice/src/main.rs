@@ -1,14 +1,18 @@
-use std::collections::HashSet;
-
 use proconio::{fastout, input};
 
 #[fastout]
 fn main() {
     input! {
-       card: [usize; 4]
+      n: usize,
+       dist: [usize; n-1]
     }
 
-    let set: HashSet<usize> = HashSet::from_iter(card);
-    let res = set.len() == 2;
-    println!("{}", if res { "Yes" } else { "No" });
+    for i in 0..n - 1 {
+        let mut tmp = 0;
+        for j in i..n - 1 {
+            tmp += dist[j];
+            print!("{tmp} ");
+        }
+        println!();
+    }
 }
