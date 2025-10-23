@@ -3,16 +3,20 @@ use proconio::{fastout, input};
 #[fastout]
 fn main() {
     input! {
-      n: usize,
-       dist: [usize; n-1]
+      x: i64,
+      y: i64,
     }
 
-    for i in 0..n - 1 {
-        let mut tmp = 0;
-        for j in i..n - 1 {
-            tmp += dist[j];
-            print!("{tmp} ");
+    let mut cnt = 0;
+
+    for i in 1..=6 {
+        for j in 1..=6 {
+            let sum = i + j;
+            let abs = ((i - j) as f64).abs();
+            if x <= sum || y as f64 <= abs {
+                cnt += 1;
+            }
         }
-        println!();
     }
+    println!("{}", cnt as f64 / 36.0);
 }
