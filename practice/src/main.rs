@@ -3,20 +3,16 @@ use proconio::{fastout, input};
 #[fastout]
 fn main() {
     input! {
-      x: i64,
-      y: i64,
+      n: usize,
+      a: [usize; n],
     }
 
-    let mut cnt = 0;
-
-    for i in 1..=6 {
-        for j in 1..=6 {
-            let sum = i + j;
-            let abs = ((i - j) as f64).abs();
-            if x <= sum || y as f64 <= abs {
-                cnt += 1;
-            }
+    let mut res = "Yes";
+    for i in 0..n - 1 {
+        if a[i] > a[i + 1] || a[i] == a[i + 1] {
+            res = "No";
+            break;
         }
     }
-    println!("{}", cnt as f64 / 36.0);
+    println!("{res}");
 }
