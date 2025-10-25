@@ -4,15 +4,20 @@ use proconio::{fastout, input};
 fn main() {
     input! {
       n: usize,
-      a: [usize; n],
+      p: [usize; n],
     }
 
-    let mut res = "Yes";
-    for i in 0..n - 1 {
-        if a[i] > a[i + 1] || a[i] == a[i + 1] {
-            res = "No";
-            break;
-        }
+    let mut count = vec![0; 101];
+    for &p in &p {
+        count[p] += 1;
     }
-    println!("{res}");
+
+    let mut t = 0;
+    for c in count.iter_mut().rev() {
+        (*c, t) = (t + 1, t + *c);
+    }
+
+    for p in p {
+        println!("{}", count[p]);
+    }
 }
