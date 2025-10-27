@@ -1,23 +1,28 @@
+use std::collections::HashMap;
+
 use proconio::{fastout, input};
 
 #[fastout]
 fn main() {
     input! {
       n: usize,
-      p: [usize; n],
+      a: [usize; n]
     }
 
-    let mut count = vec![0; 101];
-    for &p in &p {
-        count[p] += 1;
+    let mut m: HashMap<usize, usize> = HashMap::new();
+    for &a in &a {
+        *m.entry(a).or_insert(0) += 1;
     }
 
-    let mut t = 0;
-    for c in count.iter_mut().rev() {
-        (*c, t) = (t + 1, t + *c);
+    let mut res = 0;
+    for (_key, value) in m.iter() {
+        if *value >= 2 {
+            res += c2(*value) * (n - *value);
+        }
     }
+    println!("{res}");
+}
 
-    for p in p {
-        println!("{}", count[p]);
-    }
+fn c2(c: usize) -> usize {
+    return c * (c - 1) / 2;
 }
