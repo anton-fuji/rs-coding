@@ -1,28 +1,23 @@
-use std::collections::HashMap;
+use std::collections::HashSet;
 
 use proconio::{fastout, input};
 
 #[fastout]
 fn main() {
     input! {
-      n: usize,
-      a: [usize; n]
+        n: usize,
+      s: [String; n],
     }
 
-    let mut m: HashMap<usize, usize> = HashMap::new();
-    for &a in &a {
-        *m.entry(a).or_insert(0) += 1;
-    }
+    let mut set = HashSet::new();
 
-    let mut res = 0;
-    for (_key, value) in m.iter() {
-        if *value >= 2 {
-            res += c2(*value) * (n - *value);
+    for i in 0..n {
+        for j in 0..n {
+            if s[i] != s[j] {
+                let res = format!("{}{}", s[i], s[j]);
+                set.insert(res);
+            }
         }
     }
-    println!("{res}");
-}
-
-fn c2(c: usize) -> usize {
-    return c * (c - 1) / 2;
+    println!("{}", set.len());
 }
