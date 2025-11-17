@@ -1,33 +1,24 @@
-use itertools::Itertools;
 use proconio::{fastout, input};
 
+const INF: isize = 1_000_000_000_000_000;
 #[fastout]
 fn main() {
     input! {
-      h: usize,
-      w: usize,
-      a: [[usize; w]; h],
+      n: usize,
+      mut a: [isize; n],
+      q: usize,
     }
 
-    let mut rows = vec![0; h];
-    let mut cols = vec![0; w];
+    a.push(-INF);
+    a.push(INF);
 
-    for i in 0..h {
-        for j in 0..w {
-            rows[i] += a[i][j];
-            cols[j] += a[i][j];
-        }
+    a.sort();
+    for _ in 0..q {
+        input! {b:isize}
+        let idx = match a.binary_search(&b) {
+            Ok(i) | Err(i) => i,
+        };
+        let res = (a[idx] - b).abs().min((a[idx - 1] - b).abs());
+        println!("{res}");
     }
-
-    let mut res = vec![vec![0; w]; h];
-    for i in 0..h {
-        for j in 0..w {
-            res[i][j] = rows[i] + cols[j] - a[i][j];
-        }
-    }
-
-    println!(
-        "{}",
-        res.into_iter().map(|f| f.into_iter().join(" ")).join("\n")
-    );
 }
