@@ -1,23 +1,38 @@
 use proconio::{fastout, input};
-const MAX: isize = 1_000_000_000_000_000;
 
 #[fastout]
 fn main() {
     input! {
       n: usize,
-      mut a: [isize; n],
-      q: usize,
+      l: usize,
+      k:usize,
+      mut a:[usize; n]
     }
-    a.push(MAX);
-    a.push(-MAX);
 
-    a.sort();
-    for _ in 0..q {
-        input! {b: isize}
-        let idx = match a.binary_search(&b) {
-            Ok(i) | Err(i) => i,
-        };
-        let res = (a[idx] - b).abs().min((a[idx - 1] - b).abs());
-        println!("{res}");
+    a.push(l);
+    let mut left = 0;
+    let mut right = l;
+
+    while right - left > 1 {
+        let mid = (left + right) / 2;
+        if can(mid, k, &a) {
+            left = mid; // もっと大きくできる
+        } else {
+            right = mid; // 小さくする
+        }
     }
+    println!("{left}");
+}
+
+fn can(x: usize, k: usize, a: &Vec<usize>) -> bool {
+    let mut cnt = 0;
+    let mut pre = 0;
+
+    for &pos in a.iter() {
+        if pos - pre >= x {
+            cnt += 1;
+            pre = pos;
+        }
+    }
+    cnt >= k + 1
 }
