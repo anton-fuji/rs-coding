@@ -7,3 +7,5 @@ edition = "2024"
 itertools = "0.14.0"
 num = "0.4.1"
 proconio = { version = "0.4", features = ["derive"]}
+num-bigint = "0.4"
+num-traits = "0.2"
