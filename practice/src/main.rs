@@ -1,33 +1,23 @@
-use proconio::{fastout, input};
+use std::iter::repeat;
+
+use proconio::{fastout, input, marker::Chars};
 
 #[fastout]
+#[allow(unused_imports)]
 fn main() {
     input! {
-      t: usize,
+        n: usize,
+        s: [String; n],
     }
 
-    for _ in 0..t {
-        input! {
-          n: usize,
-          wp: [(usize, usize); n]
-        }
-        let mut cost = Vec::with_capacity(n);
-        let mut cap = 0;
-        for (w, p) in wp {
-            cap += p;
-            cost.push(w + p);
-        }
-        cost.sort();
-        let mut used = 0;
-        let mut res = 0;
-        for c in cost {
-            if used + c > cap {
-                break;
-            } else {
-                used += c;
-                res += 1;
-            }
-        }
-        println!("{res}");
+    let max_len = s.iter().map(|w| w.len()).max().unwrap();
+    for c in s {
+        let sub = max_len - c.len();
+        let d = sub / 2;
+        let l_d: String = repeat('.').take(d).collect();
+        let r_d: String = repeat('.').take(d).collect();
+
+        let res = format!("{}{}{}", l_d, c, r_d);
+        println!("{}", res);
     }
 }
