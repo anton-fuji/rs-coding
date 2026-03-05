@@ -4,19 +4,28 @@ use proconio::{fastout, input, marker::Chars};
 #[allow(unused_imports)]
 fn main() {
     input! {
-        s: String,
+        n: usize,
+        m: usize,
     }
 
-    let mut freq = [0; 26];
-    for c in s.chars() {
-        freq[(c as u8 - b'a') as usize] += 1;
+    let mut used = vec![false; m + 1];
+    for _ in 0..n {
+        input! {
+            l: usize,
+            x: [usize; l]
+        }
+
+        let mut ng = false;
+        for i in x {
+            if !used[i] {
+                used[i] = true;
+                println!("{}", i);
+                ng = true;
+                break;
+            }
+        }
+        if !ng {
+            println!("0");
+        }
     }
-
-    let max = *freq.iter().max().unwrap();
-
-    let res: String = s
-        .chars()
-        .filter(|&c| freq[(c as u8 - b'a') as usize] != max)
-        .collect();
-    println!("{}", res)
 }
