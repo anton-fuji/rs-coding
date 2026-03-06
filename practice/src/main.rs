@@ -1,31 +1,35 @@
+use std::collections::HashSet;
+
 use proconio::{fastout, input, marker::Chars};
 
 #[fastout]
 #[allow(unused_imports)]
 fn main() {
     input! {
-        n: usize,
-        m: usize,
+        mut n: u64,
     }
 
-    let mut used = vec![false; m + 1];
-    for _ in 0..n {
-        input! {
-            l: usize,
-            x: [usize; l]
-        }
+    let mut seen = HashSet::new();
 
-        let mut ng = false;
-        for i in x {
-            if !used[i] {
-                used[i] = true;
-                println!("{}", i);
-                ng = true;
-                break;
-            }
-        }
-        if !ng {
-            println!("0");
-        }
+    while n != 1 && !seen.contains(&n) {
+        seen.insert(n);
+        n = suquare_sum(n);
     }
+
+    if n == 1 {
+        println!("Yes");
+    } else {
+        println!("No");
+    }
+}
+
+fn suquare_sum(mut n: u64) -> u64 {
+    let mut sum = 0;
+
+    while n > 0 {
+        let d = n % 10;
+        sum += d * d;
+        n /= 10;
+    }
+    sum
 }
