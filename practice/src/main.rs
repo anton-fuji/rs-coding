@@ -4,19 +4,19 @@ use proconio::{fastout, input, marker::Chars};
 #[allow(unused_imports)]
 fn main() {
     input! {
-        mut n: usize,
-        k: usize
+        n: usize,
+        m: usize,
+        c: [usize; m]
     }
-    let mut sum = 0;
-    let mut y = 0;
 
-    loop {
-        sum += n;
-        if sum >= k {
-            println!("{}", y);
-            break;
-        }
-        n += 1;
-        y += 1;
+    let mut p = vec![0; m + 1];
+    for _ in 0..n {
+        input! {mut a: usize, b: usize}
+        p[a - 1] += b;
     }
+    let mut res = 0;
+    for j in 0..m {
+        res += p[j].min(c[j]);
+    }
+    println!("{}", res);
 }
