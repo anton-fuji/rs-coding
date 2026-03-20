@@ -5,19 +5,16 @@ use proconio::{fastout, input, marker::Chars};
 fn main() {
     input! {
         n: usize,
-        m: usize,
-        c: [usize; m],
+        a: Chars,
+        b: Chars
     }
 
-    let mut p = vec![0; m + 1];
-    for _ in 0..n {
-        input! {a: usize, b: usize}
-        p[a - 1] += b;
+    let mut flag = false;
+    for i in 0..n {
+        if a[i] == 'o' && b[i] == 'o' {
+            flag = true;
+            break;
+        }
     }
-
-    let mut res = 0;
-    for j in 0..m {
-        res += p[j].min(c[j]);
-    }
-    println!("{}", res);
+    println!("{}", if flag { "Yes" } else { "No" });
 }
