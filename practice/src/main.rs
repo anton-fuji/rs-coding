@@ -4,17 +4,9 @@ use proconio::{fastout, input, marker::Chars};
 #[allow(unused_imports)]
 fn main() {
     input! {
-        n: usize,
-        a: Chars,
-        b: Chars
+        s: Chars,
     }
 
-    let mut flag = false;
-    for i in 0..n {
-        if a[i] == 'o' && b[i] == 'o' {
-            flag = true;
-            break;
-        }
-    }
-    println!("{}", if flag { "Yes" } else { "No" });
+    let res = s.len() % 5 == 0;
+    println!("{}", if res { "Yes" } else { "No" });
 }
