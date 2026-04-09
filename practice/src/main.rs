@@ -4,9 +4,17 @@ use proconio::{fastout, input, marker::Chars};
 #[allow(unused_imports)]
 fn main() {
     input! {
-        s: Chars,
+        n: usize,
+        m :usize
     }
 
-    let res = s.len() % 5 == 0;
-    println!("{}", if res { "Yes" } else { "No" });
+    let mut diff = vec![0i64; m + 1];
+    for _ in 0..n {
+        input! {a:usize, b:usize}
+        diff[a] -= 1;
+        diff[b] += 1;
+    }
+    for i in 1..=m {
+        println!("{}", diff[i]);
+    }
 }
