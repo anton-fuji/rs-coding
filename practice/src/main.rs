@@ -5,24 +5,27 @@ use proconio::{fastout, input, marker::Chars};
 fn main() {
     input! {
         n: usize,
-        k: u64,
+        l: usize,
+        r: usize,
+        s: Chars,
     }
 
-    let mut a: Vec<Vec<u64>> = Vec::new();
-    for _ in 0..n {
-        input! {l: usize, row: [u64; l]}
-        a.push(row);
-    }
-    input! {c: [u64; n]}
-    let mut remaining = k;
+    let mut cnt = vec![vec![0i64; n + 1]; 26];
     for i in 0..n {
-        let block_size = c[i] * a[i].len() as u64;
-        if remaining <= block_size {
-            // ここの区間にkがある
-            let idx = (remaining - 1) % a[i].len() as u64;
-            println!("{}", a[i][idx as usize]);
-            return;
+        let c = (s[i] as u8 - b'a') as usize;
+        for k in 0..26 {
+            cnt[k][i + 1] = cnt[k][i];
         }
-        remaining -= block_size;
+        cnt[c][i + 1] += 1;
     }
+
+    let mut res = 0;
+    for j in 0..n {
+        let c = (s[j] as u8 - b'a') as usize;
+        let hi = if j >= l { j - l } else { continue };
+        let lo = if j >= r { j - r } else { 0 };
+
+        res += cnt[c][hi + 1] - cnt[c][lo];
+    }
+    println!("{}", res);
 }
