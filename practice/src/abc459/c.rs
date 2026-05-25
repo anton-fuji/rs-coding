@@ -1,3 +1,5 @@
+use std::collections::BTreeMap;
+
 use proconio::{fastout, input, marker::Chars};
 
 #[fastout]
@@ -10,25 +12,28 @@ fn main() {
 
     let mut blocks = vec![0i64; n + 1];
     let mut offset = 0i64;
-    let mut min_b = 0i64;
+    let mut cnt = BTreeMap::new();
+    cnt.insert(0i64, n);
 
     for _ in 0..q {
         input! {t: usize, v: i64}
         if t == 1 {
-            blocks[v as usize] += 1;
-            if blocks[v as usize] < min_b + 1 {
-                // まだ全マスが1個以上でない
-            } else {
-                min_b = *blocks.iter().skip(1).min().unwrap();
-                if min_b > offset {
-                    offset += 1;
-                }
+            let x = v as usize;
+            *cnt.entry(blocks[x]).or_insert(0) -= 1;
+            if cnt[&blocks[x]] == 0 {
+                cnt.remove(&blocks[x]);
+            }
+            blocks[x] += 1;
+            *cnt.entry(blocks[x]).or_insert(0) += 1;
+
+            let min_val = *cnt.keys().next().unwrap();
+            if min_val > offset {
+                offset += 1;
             }
         } else {
-            // y 個以上 = 積んだ回数がoffset +v 以上マスの個数
             let y = offset + v;
-            let cnt = blocks.iter().skip(1).filter(|&&b| b >= y).count();
-            println!("{cnt}");
+            let count: usize = cnt.range(y..).map(|(_, &f)| f).sum();
+            println!("{count}");
         }
     }
 }
