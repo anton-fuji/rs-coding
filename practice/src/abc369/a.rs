@@ -10,6 +10,7 @@ fn main() {
 
     if a == b {
         println!("1");
+        return;
     }
 
     if (a + b) % 2 == 0 {
