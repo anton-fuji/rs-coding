@@ -1,31 +1,25 @@
-use proconio::{fastout, input, marker::Chars};
+use proconio::{fastout, input};
 
 #[fastout]
-#[allow(unused_imports, non_snake_case)]
 fn main() {
     input! {
         n: usize,
-        l: usize,
-        r: usize,
-        s: Chars,
     }
-
-    let mut cnt = vec![vec![0i64; n + 1]; 26];
-    for i in 0..n {
-        let c = (s[i] as u8 - b'a') as usize;
-        for k in 0..26 {
-            cnt[k][i + 1] = cnt[k][i];
+    for _ in 0..n {
+        input! {
+            x1: i64,
+            y1: i64,
+            r1: i64,
+            x2: i64,
+            y2: i64,
+            r2: i64,
         }
-        cnt[c][i + 1] += 1;
-    }
+        let d = (y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1);
 
-    let mut res = 0;
-    for j in 0..n {
-        let c = (s[j] as u8 - b'a') as usize;
-        let hi = if j >= l { j - l } else { continue };
-        let lo = if j >= r { j - r } else { 0 };
-
-        res += cnt[c][hi + 1] - cnt[c][lo];
+        if d < (r2 - r1) * (r2 - r1) || d > (r1 + r2) * (r1 + r2) {
+            println!("No");
+        } else {
+            println!("Yes");
+        }
     }
-    println!("{}", res);
 }
